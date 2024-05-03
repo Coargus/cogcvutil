@@ -13,7 +13,8 @@ requires-python = ">=3.9"
 dependencies = [
     "opencv-python",
     "imageio",
-    "imageio-ffmpeg"
+    "imageio-ffmpeg",
+    "Pillow"
 ]
 
 [project.optional-dependencies]

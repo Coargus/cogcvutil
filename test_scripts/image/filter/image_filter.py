@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import cv2
-from swarm_cv.image.filter.image_filter import ImageFilter
+from cogcvutil.image.filter.image_filter import ImageFilter
 
 ROOT_DIR = Path(__file__).parent.parent.parent.parent
 SAMPLE_DATA_DIR = Path(__file__).parent.parent.parent.parent / "sample_data"

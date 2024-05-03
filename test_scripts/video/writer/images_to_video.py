@@ -1,5 +1,5 @@
 import numpy as np
-from swarm_cv.video.writer.images_to_video import VideoWriter
+from cogcvutil.video.writer.images_to_video import VideoWriter
 
 
 def main():

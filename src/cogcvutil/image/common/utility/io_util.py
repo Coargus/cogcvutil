@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import logging
 import os
 import re
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 import cv2
@@ -98,3 +100,49 @@ def read_images_sorted(directory: str) -> list[np.ndarray]:
             # Convert from BGR to RGB
             images.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     return images
+
+
+def save_image(
+    image: np.ndarray, path: str | Path, auto_indexing: bool = False
+) -> None:
+    """Save an image to the specified path.
+
+    Args:
+        path (str | Path): The path to save the image.
+        image (np.ndarray): The image to save.
+        auto_indexing (bool): Whether to automatically
+            index the filename if it already exists.
+    """
+    # Convert the input path to a Path object
+    if isinstance(path, str):
+        path = Path(path)
+
+    if auto_indexing:
+        # Extract the directory, filename, and extension from the path
+        directory = path.parent
+        filename = path.stem
+        extension = path.suffix
+
+        # Initialize the index for filename
+        index = 0
+        new_path = path  # Start with the original path
+
+        if not new_path.exists():
+            new_filename = f"{filename}_0{extension}"
+            new_path = directory / new_filename
+
+        # Check if the file exists, and find the next available filename if it does
+        while new_path.exists():
+            new_filename = f"{filename}_{index}{extension}"
+            new_path = directory / new_filename
+            index += 1
+    else:
+        new_path = path
+
+    # Here you would have your actual image saving logic, e.g., using PIL or another library
+    # For demonstration, I'll just show a message
+    image = Image.fromarray(image)
+
+    # Save the image
+    image.save(str(new_path))
+    logging.debug("Image saved to %s", str(new_path))

@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from typing import Optional
-
 import cv2
 import numpy as np
+
+from cogcvutil import save_image
 
 """Text Annotator."""
 
@@ -36,8 +36,9 @@ class TextAnnotator:
         self,
         image: np.ndarray,
         text_annotations: list[str],
-        position="upper_left",
-        save_path: Optional[str] = None,
+        position: str = "upper_left",
+        save_path: str | None = None,
+        auto_indexing: bool = False,
     ) -> np.ndarray:
         """Insert text_annotations to the current frame at the pre-specified position.
 
@@ -89,5 +90,6 @@ class TextAnnotator:
             )
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         if save_path:
-            cv2.imwrite(save_path, image)
+            save_image(image=image, path=save_path, auto_indexing=auto_indexing)
+            # cv2.imwrite(save_path, image)
         return image

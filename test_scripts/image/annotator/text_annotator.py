@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import cv2
-from swarm_cv.image.annotator.text_annotator import TextAnnotator
+from cogcvutil.image.annotator.text_annotator import TextAnnotator
 
 ROOT_DIR = Path(__file__).parent.parent.parent.parent
 SAMPLE_DATA_DIR = Path(__file__).parent.parent.parent.parent / "sample_data"

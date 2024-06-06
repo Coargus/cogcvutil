@@ -6,21 +6,17 @@ import logging
 import os
 import re
 from pathlib import Path
-from typing import TYPE_CHECKING
 
 import cv2
 import numpy as np
 from PIL import Image
-
-if TYPE_CHECKING:
-    import numpy as np
 
 
 def numeric_sort_key(s: str) -> list:
     """Natural sort key function for sorting filenames.
 
     Args:
-    - s (str): The filename to be sorted.
+        s (str): The filename to be sorted.
 
     Extract numeric parts as integers and non-numeric parts
     as text from the filename. This allows for natural sorting
@@ -82,10 +78,10 @@ def read_images_sorted(directory: str) -> list[np.ndarray]:
     Only reads files with the extensions .png, .jpg, and .jpeg.
 
     Args:
-    - directory (str): The directory path containing the images.
+        directory (str): The directory path containing the images.
 
     Returns:
-    - List[np.ndarray]: A list of images as numpy arrays in RGB format.
+        List[np.ndarray]: A list of images as numpy arrays in RGB format.
     """
     files = os.listdir(directory)
     # Sort files using the numeric_sort_key function
@@ -95,7 +91,7 @@ def read_images_sorted(directory: str) -> list[np.ndarray]:
         if file.endswith(
             (".png", ".jpg", ".jpeg")
         ):  # Extend or modify as needed
-            path = os.path.join(directory, file)
+            path = Path(directory) / file
             image = cv2.imread(path)
             # Convert from BGR to RGB
             images.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))

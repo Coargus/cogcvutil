@@ -1,7 +1,8 @@
+"""Module to write images to video."""
+
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
 
 import imageio
 import numpy as np
@@ -10,14 +11,16 @@ from cogcvutil.image.common.utility.io_util import read_images_sorted
 
 
 class VideoWriter:
-    def __init__(
+    """Video writer class."""
+
+    def __init__(  # noqa: PLR0913
         self,
         save_dir: str,
         file_name: str,
         output_extension: str = "mp4",  # gif, mp4
         frame_rate: int = 20,
-        read_image_from_dir: Optional[str | Path] = None,
-        frame_sequence: Optional[np.ndarray] = None,
+        read_image_from_dir: str | Path | None = None,
+        frame_sequence: np.ndarray | None = None,
         codec: str = "libx264",  # Default codec for mp4
     ) -> None:
         """Initialize VideoWriter.
@@ -57,16 +60,16 @@ class VideoWriter:
             )
 
     def add_frame(self, frame: np.ndarray) -> None:
+        """Add frame to frame sequence."""
         self.frame_sequence.append(frame)
 
-    def write(self, frame_sequence: Optional[np.ndarray] = None) -> None:
+    def write(self, frame_sequence: np.ndarray | None = None) -> None:
         """Write frame image to video."""
         if frame_sequence is not None:
             self.frame_sequence = frame_sequence
-        assert self.frame_sequence, "Frame sequence is empty."
+        assert self.frame_sequence, "Frame sequence is empty."  # noqa: S101
 
         for frame in self.frame_sequence:
-            frame = frame.astype(np.uint8)
-            self.video_writer.append_data(frame)
+            self.video_writer.append_data(frame.astype(np.uint8))
 
         self.video_writer.close()

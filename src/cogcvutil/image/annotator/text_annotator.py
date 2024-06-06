@@ -1,7 +1,13 @@
+"""Text Annotator."""
+
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import cv2
-import numpy as np
+
+if TYPE_CHECKING:
+    import numpy as np
 
 from cogcvutil import save_image
 
@@ -9,19 +15,23 @@ from cogcvutil import save_image
 
 
 class TextAnnotator:
+    """Annotate text on an image."""
+
     def __init__(
         self,
         font: any = cv2.FONT_HERSHEY_SIMPLEX,
         font_scale: float = 1.0,
         font_color: tuple = (57, 255, 20),
         line_spacing: int = 10,
-    ):
+    ) -> None:
         """Initialize the image annotator.
 
         Args:
+            font (any): Font type. Default is cv2.FONT_HERSHEY_SIMPLEX.
             image_path (str): Path to the image file.
             font_scale (float): Scale of the font size. Default is 3.0.
             font_color (tuple): Font color in BGR format. Default is neon green.
+            line_spacing (int): Spacing between lines of text. Default is 10.
 
         """
         self.font = font
@@ -43,9 +53,11 @@ class TextAnnotator:
         """Insert text_annotations to the current frame at the pre-specified position.
 
         Args:
-            text_annotations (list[str]): List of text_annotations.
-            position (str): The default position for text_annotations.
-                            One of 'upper_left', 'upper_right', 'bottom_left', 'bottom_right'.
+            image (np.ndarray): Image to annotate.
+            text_annotations (list[str]): List of text annotations to insert.
+            position (str): Position to insert the annotations. Default is "upper_left".
+            save_path (str): Path to save the annotated image. Default is None.
+            auto_indexing (bool): Automatically index the file name. Default is False.
         """
         # Calculate the bounding box for the annotations
         text_height_total = 0

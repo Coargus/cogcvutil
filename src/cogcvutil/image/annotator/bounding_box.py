@@ -1,7 +1,13 @@
+"""Bounding Box Visualizer."""
+
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import cv2
-import numpy as np
+
+if TYPE_CHECKING:
+    import numpy as np
 
 from cogcvutil.common.converter.color import hex_to_bgr
 
@@ -17,14 +23,14 @@ def visualize_bbox(
     """Draw rectangles around bounding boxes within an image.
 
     Args:
-    - image (np.ndarray): A numpy array of the image.
-    - bboxes (list[list[int]]): The bounding boxes in format [[x1, y1, x2, y2], ...].
-    - bbox_border_thickness (int): The thickness of the border drawn around the bboxes.
-    - bbox_border_color (str): The color of the border drawn around the bboxes, as a hex code.
+        image (np.ndarray): A numpy array of the image.
+        bboxes (list[list[int]]): The bounding boxes in format [[x1, y1, x2, y2], ...].
+        bbox_border_thickness (int): The thickness of the border drawn around the bboxes.
+        bbox_border_color (str): The color of the border drawn around the bboxes, as a hex code.
 
     Returns:
-    - np.ndarray: The image with bounding boxes annotated.
-    """
+        np.ndarray: The image with bounding boxes annotated.
+    """  # noqa: E501
     bbox_border_color_bgr = hex_to_bgr(bbox_border_color)
     for bbox in bboxes:
         x1, y1, x2, y2 = map(int, bbox)  # Ensure coordinates are integer
@@ -39,7 +45,7 @@ def visualize_bbox(
     return image
 
 
-def visualize_bbox_with_annotations(
+def visualize_bbox_with_annotations(  # noqa: PLR0913, D417
     image: np.ndarray,
     bboxes: list[list[int]],
     labels: list[str],
@@ -54,22 +60,22 @@ def visualize_bbox_with_annotations(
     """Draw rectangles around bounding boxes within an image and annotate with labels and confidence scores.
 
     Args:
-    - image (np.ndarray): A numpy array of the image.
-    - bboxes (list[dict]): The bounding boxes with format [{"bbox": [x1, y1, x2, y2], "label": str, "conf": float}, ...].
-    - bbox_border_thickness (int): The thickness of the border drawn around the bboxes.
-    - bbox_border_color (str): The color of the border drawn around the bboxes, as a hex code.
-    - font_scale (float): The scale of the font used for annotations.
-    - font_thickness (int): The thickness of the font used for annotations.
-    - text_color (str): The color of the text annotations, as a hex code.
-    - text_loc (str): The location of the text annotations, either "up" or "down".
+        image (np.ndarray): A numpy array of the image.
+        bboxes (list[dict]): The bounding boxes with format [{"bbox": [x1, y1, x2, y2], "label": str, "conf": float}, ...].
+        bbox_border_thickness (int): The thickness of the border drawn around the bboxes.
+        bbox_border_color (str): The color of the border drawn around the bboxes, as a hex code.
+        font_scale (float): The scale of the font used for annotations.
+        font_thickness (int): The thickness of the font used for annotations.
+        text_color (str): The color of the text annotations, as a hex code.
+        text_loc (str): The location of the text annotations, either "up" or "down".
 
     Returns:
-    - np.ndarray: The image with bounding boxes and annotations.
-    """
+        np.ndarray: The image with bounding boxes and annotations.
+    """  # noqa: E501
     bbox_border_color_bgr = hex_to_bgr(bbox_border_color)
     text_color_bgr = hex_to_bgr(text_color)
 
-    for idx, bbox_info in enumerate(bboxes):
+    for idx, _ in enumerate(bboxes):
         bbox = bboxes[idx]
         label = labels[idx]
         conf = confs[idx]

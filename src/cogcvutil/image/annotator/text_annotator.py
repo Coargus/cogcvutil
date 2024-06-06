@@ -91,5 +91,4 @@ class TextAnnotator:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         if save_path:
             save_image(image=image, path=save_path, auto_indexing=auto_indexing)
-            # cv2.imwrite(save_path, image)
         return image

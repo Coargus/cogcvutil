@@ -92,7 +92,7 @@ def read_images_sorted(directory: str) -> list[np.ndarray]:
             (".png", ".jpg", ".jpeg")
         ):  # Extend or modify as needed
             path = Path(directory) / file
-            image = cv2.imread(path)
+            image = cv2.imread(str(path))
             # Convert from BGR to RGB
             images.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     return images
